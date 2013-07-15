@@ -873,17 +873,16 @@ Rooms.BattleRoom.prototype.win = function(winner) {
 		else if (this.p2.userid != winnerid) {
 			var istie = true;
 		}
-		if (Object.keys(this.users).length == 1) var timelose = true
 		for (var i in tour) {
 			var c = tour[i];
 			if (c.status == 2) {
 				for (var x in c.round) {
 					if ((this.p1.userid == c.round[x][0] && this.p2.userid == c.round[x][1]) || (this.p2.userid == c.round[x][0] && this.p1.userid == c.round[x][1])) {
 						if (c.round[x][2] == -1) {
-							if (!rightplayers && !timelose) {
+							if (!rightplayers && !this.inactivitylose) {
 									c.round[x][2] = 0;
 									Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + this.p1.name + '</b>' + " and " + '<b>' + this.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
-							} else if (istie && !timelose) {
+							} else if (istie && !this.inactivitylose) {
 								c.round[x][2] = 0;
 								Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + this.p1.name + '</b>' + " and " + '<b>' + this.p2.name + '</b>' + " ended in a " + '<b>' + "tie." + '</b>');
 							} else {
@@ -991,4 +990,64 @@ Rooms.BattleRoom.prototype.win = function(winner) {
 	}
 	this.active = false;
 	this.update();
+};
+
+Rooms.BattleRoom.prototype.kickInactive = function() {
+		clearTimeout(this.resetTimer);
+		this.resetTimer = null;
+
+		if (!this.battle || this.battle.ended || !this.battle.started) return false;
+
+		var inactiveSide = this.getInactiveSide();
+
+		var ticksLeft = [0, 0];
+		if (inactiveSide != 1) {
+			// side 0 is inactive
+			this.sideTurnTicks[0]--;
+			this.sideTicksLeft[0]--;
+		}
+		if (inactiveSide != 0) {
+			// side 1 is inactive
+			this.sideTurnTicks[1]--;
+			this.sideTicksLeft[1]--;
+		}
+		ticksLeft[0] = Math.min(this.sideTurnTicks[0], this.sideTicksLeft[0]);
+		ticksLeft[1] = Math.min(this.sideTurnTicks[1], this.sideTicksLeft[1]);
+
+		if (ticksLeft[0] && ticksLeft[1]) {
+			if (inactiveSide == 0 || inactiveSide == 1) {
+				// one side is inactive
+				var inactiveTicksLeft = ticksLeft[inactiveSide];
+				var inactiveUser = this.battle.getPlayer(inactiveSide);
+				if (inactiveTicksLeft % 3 == 0 || inactiveTicksLeft <= 4) {
+					this.send('|inactive|'+(inactiveUser?inactiveUser.name:'Player '+(inactiveSide+1))+' has '+(inactiveTicksLeft*10)+' seconds left.');
+				}
+			} else {
+				// both sides are inactive
+				var inactiveUser0 = this.battle.getPlayer(0);
+				if (ticksLeft[0] % 3 == 0 || ticksLeft[0] <= 4) {
+					this.send('|inactive|'+(inactiveUser0?inactiveUser0.name:'Player 1')+' has '+(ticksLeft[0]*10)+' seconds left.', inactiveUser0);
+				}
+
+				var inactiveUser1 = this.battle.getPlayer(1);
+				if (ticksLeft[1] % 3 == 0 || ticksLeft[1] <= 4) {
+					this.send('|inactive|'+(inactiveUser1?inactiveUser1.name:'Player 2')+' has '+(ticksLeft[1]*10)+' seconds left.', inactiveUser1);
+				}
+			}
+			this.resetTimer = setTimeout(this.kickInactive.bind(this), 10*1000);
+			return;
+		}
+
+		if (inactiveSide < 0) {
+			if (ticksLeft[0]) inactiveSide = 1;
+			else if (ticksLeft[1]) inactiveSide = 0;
+		}
+
+		this.forfeit(this.battle.getPlayer(inactiveSide),' lost due to inactivity.', inactiveSide);
+		this.resetUser = '';
+
+		if (this.parentid) {
+			getRoom(this.parentid).updateRooms();
+		}
+		this.inactivitylose = true
 };
