@@ -873,7 +873,6 @@ Rooms.BattleRoom.prototype.win = function(winner) {
 		else if (this.p2.userid != winnerid) {
 			var istie = true;
 		}
-		console.log(Object.keys(this.users));
 		if (Object.keys(this.users).length == 1) var timelose = true
 		for (var i in tour) {
 			var c = tour[i];
