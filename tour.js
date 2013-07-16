@@ -794,8 +794,12 @@ var cmds = {
 				return this.sendReply('This battle is not weird enough for you to use this command. Bring a mod here to use it instead.');
 			}
 		}
-	}
+	},
 
+	documentation: function() {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox("Click <a href='http://elloworld.dyndns.org/documentation.html'>here</a> to be taken to the documentation for the tournament commands.");
+	}
 };
 
 for (var i in cmds) CommandParser.commands[i] = cmds[i];
