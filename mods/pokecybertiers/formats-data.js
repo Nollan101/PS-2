@@ -10,15 +10,39 @@ exports.BattleFormatsData = {
         tornadust: {
                 inherit: true,
                 tier: 'OU'
-        },
+        },        
         landorus: {
                 inherit: true,
                 tier: 'Uber'
         },
-        serperior: {
+        tornadust: {
                 inherit: true,
-                tier: 'UU'
+                tier: 'OU'
+        },        
+        victini: {
+                inherit: true,
+                tier: 'BL'
         },
+        heracross: {
+                inherit: true,
+                tier: 'BL'
+        },
+        victini: {
+                inherit: true,
+                tier: 'BL'
+        },
+        cresselia: {
+                inherit: true,
+                tier: 'BL'
+        },
+        keldeo: {
+                inherit: true,
+                tier: 'BL'
+        },
+        reuniclus: {
+                inherit: true,
+                tier: 'BL'
+        },        
         sawsbuck: {
                 inherit: true,
                 tier: 'UU'
@@ -47,6 +71,10 @@ exports.BattleFormatsData = {
                 inherit: true,
                 tier: 'RU'
         },
+        ludicolo: {
+                inherit: true,
+                tier: 'BL3'
+        },        
         scyther: {
                 inherit: true,
                 tier: 'NU'
