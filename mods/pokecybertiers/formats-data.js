@@ -23,6 +23,14 @@ exports.BattleFormatsData = {
                 inherit: true,
                 tier: 'BL'
         },
+        keldeor: {
+                inherit: true,
+                tier: 'BL'
+        },
+        hippowdon: {
+                inherit: true,
+                tier: 'BL'
+        },        
         heracross: {
                 inherit: true,
                 tier: 'BL'
