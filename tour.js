@@ -1127,7 +1127,7 @@ Rooms.BattleRoom.prototype.requestKickInactive = function(user, force) {
 		// if a player has left, don't wait longer than 6 ticks (1 minute)
 		maxTicksLeft = 6;
 	}
-	if (!this.rated && !this.tournament) maxTicksLeft = 30; else maxTicksLeft = 1;
+	if (!this.rated && !this.tournament) maxTicksLeft = 30;
 
 	this.sideTurnTicks = [maxTicksLeft, maxTicksLeft];
 
