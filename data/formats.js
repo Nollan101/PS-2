@@ -26,6 +26,84 @@ exports.BattleFormats = {
 		searchShow: true,
 		ruleset: ['Random Battle']
 	},
+	pokecyberou: {
+		name: "PokeCyber OU",
+		section: "PokeCyber Tiers",
+
+		mod: 'pokecybertiers',
+		effectType: 'Format',
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['Uber','Soul Dew', 'Drizzle']
+	},
+	pokecyberbl: {
+		name: "PokeCyber BL",
+		section: "PokeCyber Tiers",
+
+		mod: 'pokecybertiers',
+		effectType: 'Format',
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['OU']
+	},	
+	pokecyberuu: {
+		name: "PokeCyber UU",
+		section: "PokeCyber Tiers",
+
+		mod: 'pokecybertiers',
+		effectType: 'Format',
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['OU','BL']
+	},
+	pokecyberru: {
+		name: "PokeCyber RU",
+		section: "PokeCyber Tiers",
+
+		mod: 'pokecybertiers',
+		effectType: 'Format',
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['UU','BL2','Drought','Sand Stream']
+	},
+	pokecybernu: {
+		name: "PokeCyber NU",
+		section: "PokeCyber Tiers",
+
+		mod: 'pokecybertiers',
+		effectType: 'Format',
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['RU','BL3']
+	},
+	pokecyberlou: {
+		name: "PokeCyber LOU",
+		section: "PokeCyber Tiers",
+
+		mod: 'pokecybertiers',
+		effectType: 'Format',
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['NU']
+	},	
 	ou: {
 		name: "OU",
 		section: "Singles",
