@@ -325,9 +325,19 @@ function clean(string) {
 var cmds = {
 	tour: function(target, room, user, connection) {
 		if (!user.can('broadcast')) {
-			return this.sendReply('You do not have enough authority to use this command.');
+			return this.parse('/tours');
 		}
-		if (tour[room.id].status != 0) {
+		var rid = room.id;
+		var orid = room.id;
+		var tourrooms = new Object();
+		if (Rooms.rooms["tournaments"]) tourrooms["tournaments"] = 1;
+		if (Rooms.rooms["tournaments2"]) tourrooms["tournaments2"] = 1;
+		if (Object.keys(tourrooms).length) {
+			if (!tourrooms[rid]) rid = "tournaments";
+			if (tour[rid].status > 0 && tourrooms["tournaments2"]) rid = "tournaments2";
+			if (tour[rid].status > 0) rid = orid;
+		}
+		if (tour[rid].status != 0) {
 			return this.sendReply('There is already a tournament running, or there is one in a signup phase.');
 		}
 		if (!target) {
@@ -351,7 +361,7 @@ var cmds = {
 				return this.sendReply('/tour tier, NUMBER minutes');
 			}
 			targets[1] = Math.ceil(targets[1]);
-			tour.timers[room.id] = {
+			tour.timers[rid] = {
 				time: targets[1],
 				startTime: tour.currentSeconds
 			};
@@ -367,15 +377,15 @@ var cmds = {
 			return this.sendReply('Tournaments must contain 3 or more people.');
 		}
 
-		tour.reset(room.id);
-		tour[room.id].tier = tempTourTier;
-		tour[room.id].size = targets[1];
-		tour[room.id].status = 1;
-		tour[room.id].players = new Array();		
+		tour.reset(rid);
+		tour[rid].tier = tempTourTier;
+		tour[rid].size = targets[1];
+		tour[rid].status = 1;
+		tour[rid].players = new Array();	
 
-		room.addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' has started a ' + Tools.data.Formats[tempTourTier].name + ' Tournament.</font> <font color="red">/j</font> <font color="green">to join!</font></h2><b><font color="blueviolet">PLAYERS:</font></b> ' + targets[1] + '<br /><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tempTourTier].name + '<hr />');
-		if (tour.timers[room.id]) {
-			room.addRaw('<i>The tournament will begin in ' + tour.timers[room.id].time + ' minute(s).<i>');
+		Rooms.rooms[rid].addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' has started a ' + Tools.data.Formats[tempTourTier].name + ' Tournament.</font> <font color="red">/j</font> <font color="green">to join!</font></h2><b><font color="blueviolet">PLAYERS:</font></b> ' + targets[1] + '<br /><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tempTourTier].name + '<hr />');
+		if (tour.timers[rid]) {
+			Rooms.rooms[rid].addRaw('<i>The tournament will begin in ' + tour.timers[rid].time + ' minute(s).<i>');
 		}
 	},
 
@@ -764,7 +774,7 @@ var cmds = {
 					if ((room.p1.userid == c.round[x][0] && room.p2.userid == c.round[x][1]) || (room.p2.userid == c.round[x][0] && room.p1.userid == c.round[x][1])) {
 						if (c.round[x][2] == -1) {
 							if ((room.tryinvalid && this.can('ban')) || !rightplayers) {
-									c.round[x][2] = 0;
+									c.round[x][2] = undefined;
 									Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + room.p1.name + '</b>' + " and " + '<b>' + room.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
 									room.tryinvalid = false;
 									var success = true;
@@ -880,7 +890,7 @@ Rooms.BattleRoom.prototype.win = function(winner) {
 					if ((this.p1.userid == c.round[x][0] && this.p2.userid == c.round[x][1]) || (this.p2.userid == c.round[x][0] && this.p1.userid == c.round[x][1])) {
 						if (c.round[x][2] == -1) {
 							if (!rightplayers && !this.inactivitylose) {
-									c.round[x][2] = 0;
+									c.round[x][2] = undefined;
 									Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + this.p1.name + '</b>' + " and " + '<b>' + this.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
 							} else if (istie && !this.inactivitylose) {
 								c.round[x][2] = 0;
@@ -991,7 +1001,6 @@ Rooms.BattleRoom.prototype.win = function(winner) {
 	this.active = false;
 	this.update();
 };
-
 Rooms.BattleRoom.prototype.kickInactive = function() {
 		clearTimeout(this.resetTimer);
 		this.resetTimer = null;
@@ -1047,7 +1056,51 @@ Rooms.BattleRoom.prototype.kickInactive = function() {
 		this.resetUser = '';
 
 		if (this.parentid) {
-			getRoom(this.parentid).updateRooms();
+			Rooms.get(this.parentid).updateRooms();
 		}
 		this.inactivitylose = true
+};
+Rooms.BattleRoom.prototype.requestKickInactive = function(user, force) {
+	if (this.resetTimer) {
+		this.send('|inactive|The inactivity timer is already counting down.', user);
+		return false;
+	}
+	if (user) {
+		if (!force && this.battle.getSlot(user) < 0) return false;
+		this.resetUser = user.userid;
+		this.send('|inactive|Battle timer is now ON: inactive players will automatically lose when time\'s up. (requested by '+user.name+')');
+	}
+
+	// a tick is 10 seconds
+
+	var maxTicksLeft = 15; // 2 minutes 30 seconds
+	if (!this.battle.p1 || !this.battle.p2) {
+		// if a player has left, don't wait longer than 6 ticks (1 minute)
+		maxTicksLeft = 6;
+	}
+	if (!this.rated && !this.tournament) maxTicksLeft = 30; else maxTicksLeft = 1;
+
+	this.sideTurnTicks = [maxTicksLeft, maxTicksLeft];
+
+	var inactiveSide = this.getInactiveSide();
+	if (inactiveSide < 0) {
+		// add 10 seconds to bank if they're below 160 seconds
+		if (this.sideTicksLeft[0] < 16) this.sideTicksLeft[0]++;
+		if (this.sideTicksLeft[1] < 16) this.sideTicksLeft[1]++;
+	}
+	this.sideTicksLeft[0]++;
+	this.sideTicksLeft[1]++;
+	if (inactiveSide != 1) {
+		// side 0 is inactive
+		var ticksLeft0 = Math.min(this.sideTicksLeft[0] + 1, maxTicksLeft);
+		this.send('|inactive|You have '+(ticksLeft0*10)+' seconds to make your decision.', this.battle.getPlayer(0));
+	}
+	if (inactiveSide != 0) {
+		// side 1 is inactive
+		var ticksLeft1 = Math.min(this.sideTicksLeft[1] + 1, maxTicksLeft);
+		this.send('|inactive|You have '+(ticksLeft1*10)+' seconds to make your decision.', this.battle.getPlayer(1));
+	}
+
+	this.resetTimer = setTimeout(this.kickInactive.bind(this), 10*1000);
+	return true;
 };
