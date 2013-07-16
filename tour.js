@@ -324,6 +324,10 @@ function clean(string) {
  *********************************************************/
 var cmds = {
 	tour: function(target, room, user, connection) {
+		if (target == "update" && this.can('hotpatch')) {
+			CommandParser.uncacheTree('./tour.js');
+			tour = require('./tour.js').tour(tour);
+		}
 		if (!user.can('broadcast')) {
 			return this.parse('/tours');
 		}
