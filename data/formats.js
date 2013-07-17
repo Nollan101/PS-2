@@ -26,10 +26,10 @@ exports.BattleFormats = {
 		searchShow: true,
 		ruleset: ['Random Battle']
 	},
-	gen6ou: {
-		name: "Gen 6 OU TEST",
+	gen4oubeta: {
+		name: "[Gen 6] OU (beta)",
 		section: "Generation 6",
-		
+
 		mod: 'gen6',
 		effectType: 'Format',
 		challengeDefault: true,
@@ -37,8 +37,8 @@ exports.BattleFormats = {
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
+		ruleset: ['Pokemon', 'Standard','Team Preview'],
+		banlist: ['Uber','Drizzle','Soul Dew']
 	},	
 	pokecyberou: {
 		name: "PokeCyber OU",
