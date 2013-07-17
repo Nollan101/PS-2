@@ -21,10 +21,10 @@ exports.BattleScripts = {
         
 	this.modData('Pokedex', 'gallade').types = ["Fighting","Fairy"];
 	this.modData('Learnsets', 'gallade').learnset.fairywind = ['5L0'];
-	this.modData('Learnsets', 'gallade').lunardance = ['5L0'];
-	this.modData('Learnsets', 'gallade').drainingkiss = ['5L0'];              
-	this.modData('Learnsets', 'gallade').lunardance = ['5L0'];
-	this.modData('Learnsets', 'gallade').mysticcrash = ['5L0'];
+	this.modData('Learnsets', 'gallade').learnset.lunardance = ['5L0'];
+	this.modData('Learnsets', 'gallade').learnset.drainingkiss = ['5L0'];              
+	this.modData('Learnsets', 'gallade').learnset.lunardance = ['5L0'];
+	this.modData('Learnsets', 'gallade').learnset.mysticcrash = ['5L0'];
 	
 	this.modData('Learnsets', 'yveltal').learnset.toxic = ['5L0'];
 	this.modData('Learnsets', 'yveltal').learnset.doubleedge = ['5L0'];
