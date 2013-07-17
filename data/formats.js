@@ -26,6 +26,20 @@ exports.BattleFormats = {
 		searchShow: true,
 		ruleset: ['Random Battle']
 	},
+	gen6ubersbeta: {
+		name: "[Gen 6] Ubers (beta)",
+		section: "Generation 6",
+
+		mod: 'gen6',
+		effectType: 'Format',
+		challengeDefault: true,
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard','Team Preview'],
+		banlist: []
+	},	
 	gen6oubeta: {
 		name: "[Gen 6] OU (beta)",
 		section: "Generation 6",
@@ -37,7 +51,7 @@ exports.BattleFormats = {
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard','Team Preview'],
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
 		banlist: ['Uber','Drizzle','Soul Dew']
 	},	
 	pokecyberou: {
