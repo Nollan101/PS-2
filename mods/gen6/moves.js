@@ -220,7 +220,6 @@ exports.BattleMovedex = {
                                target.boosts[i] = target.boosts[i] * (-1);
                         }
                         this.add('-reverseboost', target, '[from] move: Topsy-Turvy');
-			}                       
                 },
                 secondary: false,
                 target: "normal",
