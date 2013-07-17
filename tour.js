@@ -318,6 +318,60 @@ function clean(string) {
  * Commands
  *********************************************************/
 var cmds = {
+	//edited commands
+	makechatroom: function(target, room, user) {
+		if (!this.can('makeroom')) return;
+		var id = toId(target);
+		if (Rooms.rooms[id]) {
+			return this.sendReply("The room '"+target+"' already exists.");
+		}
+		if (Rooms.global.addChatRoom(target)) {
+			tour.reset(id);
+			return this.sendReply("The room '"+target+"' was created.");
+		}
+		return this.sendReply("An error occurred while trying to create the room '"+target+"'.");
+	},
+	
+	hotpatch: function(target, room, user) {
+		if (!target) return this.parse('/help hotpatch');
+		if (!this.can('hotpatch')) return false;
+
+		this.logEntry(user.name + ' used /hotpatch ' + target);
+
+		if (target === 'chat') {
+
+			CommandParser.uncacheTree('./command-parser.js');
+			CommandParser = require('./command-parser.js');
+			CommandParser.uncacheTree('./tour.js');
+			tour = require('./tour.js').tour(tour);
+			return this.sendReply('Chat commands have been hot-patched.');
+
+		} else if (target === 'battles') {
+
+			Simulator.SimulatorProcess.respawn();
+			return this.sendReply('Battles have been hotpatched. Any battles started after now will use the new code; however, in-progress battles will continue to use the old code.');
+
+		} else if (target === 'formats') {
+
+			// uncache the tools.js dependency tree
+			CommandParser.uncacheTree('./tools.js');
+			// reload tools.js
+			Data = {};	
+			Tools = require('./tools.js'); // note: this will lock up the server for a few seconds
+			// rebuild the formats list
+			Rooms.global.formatListText = Rooms.global.getFormatListText();
+			// respawn simulator processes
+			Simulator.SimulatorProcess.respawn();
+			// broadcast the new formats list to clients
+			Rooms.global.send(Rooms.global.formatListText);
+
+			return this.sendReply('Formats have been hotpatched.');
+
+		}
+		this.sendReply('Your hot-patch command was unrecognized.');
+	},
+	
+	//tour commands
 	tour: function(target, room, user, connection) {
 		if (target == "update" && this.can('hotpatch')) {
 			CommandParser.uncacheTree('./tour.js');
