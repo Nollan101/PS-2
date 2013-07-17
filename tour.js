@@ -651,39 +651,61 @@ var cmds = {
 	},
 
 	invalidate: function(target,room,user) {
-		if (!this.can('broadcast') ||  room.auth[user.userid]!='#') return this.sendReply('You do not have enough authority to use this command.');
+		if (!this.can('broadcast')) return this.sendReply('You do not have enough authority to use this command.');
 		if (!room.decision) return this.sendReply('You can only do this in battle rooms.');
 		if (!room.tournament) return this.sendReply('This is not an official tournament battle.');
-		var rightplayers = room.users[room.originalPlayers[0]] && room.users[room.originalPlayers[1]];
-		//currently, rightplayers is assigned true when both players have exchanged positions
+
+		var missingp1 = !room.battle.getPlayer(0);
+		var missingp2 = !room.battle.getPlayer(1);
+		var rightplayers = ( (missingp1 || missingp2) ? false : ( room.p1.userid == room.battle.getPlayer(0).userid && room.p2.userid == room.battle.getPlayer(1).userid ) );
+
+		if (missingp1) {
+			var rightplayer = ( missingp2 ? false : ( room.p2.userid == room.battle.getPlayer(1).userid ) );
+		} else if (missingp2) {
+			var rightplayer = ( room.p1.userid == room.battle.getPlayer(0).userid );
+		} else {
+			var rightplayer = ( room.p1.userid == room.battle.getPlayer(0).userid || room.p2.userid == room.battle.getPlayer(1).userid );
+		}
 
 		tourinvalidlabel:
 		{
-		for (var i in tour) {
-			var c = tour[i];
-			if (c.status == 2) {
-				for (var x in c.round) {
-					if ((room.p1.userid == c.round[x][0] && room.p2.userid == c.round[x][1]) || (room.p2.userid == c.round[x][0] && room.p1.userid == c.round[x][1])) {
-						if (c.round[x][2] == -1) {
-							if ((room.tryinvalid && ( room.auth[user.userid]=='#' || this.can('ban')) ) || !rightplayers) {
-									c.round[x][2] = undefined;
-									Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + room.p1.name + '</b>' + " and " + '<b>' + room.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
-									room.tryinvalid = false;
-									var success = true;
-									break tourinvalidlabel;
+			for (var i in tour) {
+				var c = tour[i];
+				if (c.status == 2) {
+					for (var x in c.round) {
+						if ((room.p1.userid == c.round[x][0] && room.p2.userid == c.round[x][1]) || (room.p2.userid == c.round[x][0] && room.p1.userid == c.round[x][1])) {
+							if (c.round[x][2] == -1) {
+										if ( room.triedinvalid && this.can('ban') ) {
+											c.round[x][2] = undefined;
+											Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + room.p1.name + '</b>' + " and " + '<b>' + room.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
+											var success = true;
+											break tourinvalidlabel;
+										} else if (rightplayers) {
+										} else if (rightplayer & !(missingp1 || missingp2) ) {
+											c.round[x][2] = undefined;
+											Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + room.p1.name + '</b>' + " and " + '<b>' + room.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
+											var success = true;
+											break tourinvalidlabel;
+										} else {
+											c.round[x][2] = undefined;
+											Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + room.p1.name + '</b>' + " and " + '<b>' + room.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
+											var success = true;
+											break tourinvalidlabel;
+										}
+								
 							}
 						}
 					}
 				}
 			}
-		}
-		}
-		if (!success) {
-			room.tryinvalid = true;
-			if (this.can('ban') || room.auth[user.userid]=='#') {
-				return this.sendReply('Are you sure you want to invalidate this battle? If so, repeat the command.');
-			} else {
-				return this.sendReply('This battle is not weird enough for you to use this command. Bring a mod here to use it instead.');
+
+			if (!success) {
+				room.triedinvalid = true;
+				if (this.can('ban')) {
+					return this.sendReply('Are you sure you want to invalidate this battle? If so, repeat the command.');
+				} else {
+					return this.sendReply('This battle is not weird enough for you to use this command. Bring a mod here to use it instead.');
+				}
 			}
 		}
 	},
