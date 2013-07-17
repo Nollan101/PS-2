@@ -216,7 +216,6 @@ exports.BattleMovedex = {
                 pp: 16,
                 priority: 0,
                 onHit: function(target) {
-                        for (var i in target.boosts) {
                                 return target.boosts * .5;
                         }
                         this.add('-reverseboost', target, '[from] move: Topsy-Turvy');
