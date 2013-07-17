@@ -10,7 +10,8 @@ exports.BattleScripts = {
     	this.data.Pokedex.gardevoir.types = ["Psychic","Fairy"];
     	this.data.Learnsets.gardevoir.learnset.fairywind = ['5L0'];
         this.data.Learnsets.gardevoir.learnset.lunardance = ['5L0'];
-        this.data.Learnsets.gardevoir.learnset.drainingkiss = ['5L0'];        
+        this.data.Learnsets.gardevoir.learnset.drainingkiss = ['5L0'];
+        this.data.Learnsets.gardevoir.learnset.closecombat = ['5L0'];
 
         this.data.Pokedex.clefable.types = ["Normal","Fairy"];
         this.data.Learnsets.clefable.learnset.fairywind = ['5L0'];
