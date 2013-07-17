@@ -12,7 +12,7 @@ exports.BattleScripts = {
         this.mods.gen6.Learnsets.gardevoir.learnset.lunardance = ['5L0'];
         this.mods.gen6.Learnsets.gardevoir.learnset.drainingkiss = ['5L0'];
         this.mods.gen6.Learnsets.gardevoir.learnset.closecombat = ['5L0'];
-        this.mods.gen6..Pokedex.gardevoir.baseStats = {hp:99,atk:140,def:145,spa:70,spd:140,spe:142};
+        this.mods.gen6.Pokedex.gardevoir.baseStats = {hp:99,atk:140,def:145,spa:70,spd:140,spe:142};
 
         this.mods.gen6.Pokedex.clefable.types = ["Normal","Fairy"];
         this.mods.gen6.Learnsets.clefable.learnset.fairywind = ['5L0'];
