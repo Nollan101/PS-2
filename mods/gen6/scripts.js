@@ -22,6 +22,6 @@ exports.BattleScripts = {
         this.data.Learnsets.gallade.learnset.lunardance = ['5L0'];
         this.data.Learnsets.gallade.learnset.drainingkiss = ['5L0'];              
         this.data.Learnsets.gallade.learnset.lunardance = ['5L0'];
-        this.data.Learnsets.gallade.learnset.mysticcrash = ['5L0'];                  
-    }
-};
+        this.data.Learnsets.gallade.learnset.mysticcrash = ['5L0'];
+	}
+};       
