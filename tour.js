@@ -791,7 +791,7 @@ Rooms.global.startBattle = function(p1, p2, format, rated, p1team, p2team) {
 								newRoom.tournament = true;
 								c.battles[x] = "battle-" + formaturlid + "-" + battleid;
 								c.round[x][2] = -1;
-								Rooms.rooms[i].addRaw("<a href=\"/battle-" + c.battles[x] + "\" class=\"ilink\"><b>Tournament battle between " + p1.name + " and " + p2.name + " started.</b></a>");
+								Rooms.rooms[i].addRaw("<a href=\"/" + c.battles[x] + "\" class=\"ilink\"><b>Tournament battle between " + p1.name + " and " + p2.name + " started.</b></a>");
 							}
 						}
 					}
@@ -971,7 +971,6 @@ Rooms.BattleRoom.prototype.win = function(winner) {
 	this.active = false;
 	this.update();
 };
-
 Rooms.BattleRoom.prototype.requestKickInactive = function(user, force) {
 	if (this.resetTimer) {
 		this.send('|inactive|The inactivity timer is already counting down.', user);
