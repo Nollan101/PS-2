@@ -3,6 +3,7 @@ exports.BattleScripts = {
         for (var i in this.data.FormatsData)
             this.data.FormatsData[i].dreamWorldRelease = true;
     	}
+    	
     	this.data.Pokedex.azumarill.types = ["Water","Fairy"];
     	this.data.Learnsets.azumarill.learnset.lunardance = ['5L0'];
     	this.data.Learnsets.azumarill.learnset.mysticcrash = ['5L0'];        
