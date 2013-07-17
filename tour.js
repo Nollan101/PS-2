@@ -348,6 +348,9 @@ var cmds = {
 			return this.sendReply('Proper syntax for this command: /tour tier, size');
 		}
 		var targets = tour.splint(target);
+		if (targets.length != 2) {
+			return this.sendReply('Proper syntax for this command: /tour tier, size');
+		}
 		var tierMatch = false;
 		var tempTourTier = '';
 		for (var i = 0; i < tour.tiers.length; i++) {
