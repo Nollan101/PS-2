@@ -29,7 +29,7 @@ exports.BattleFormats = {
 	gen6ou: {
 		name: "Gen 6 OU TEST",
 		section: "Generation 6",
-
+		
 		mod: 'gen6',
 		effectType: 'Format',
 		rated: true,
@@ -107,7 +107,7 @@ exports.BattleFormats = {
 	pokecyberlou: {
 		name: "PokeCyber LOU",
 		section: "PokeCyber Tiers",
-
+		
 		mod: 'pokecybertiers',
 		effectType: 'Format',
 		rated: true,
@@ -120,7 +120,7 @@ exports.BattleFormats = {
 	pokecyberlc: {
 		name: "PokeCyber LC",
 		section: "PokeCyber Tiers",
-
+		
                 mod: 'pokecybertiers'
 		effectType: 'Format',
 		maxLevel: 5,
