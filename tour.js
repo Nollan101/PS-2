@@ -524,7 +524,10 @@ var cmds = {
 					if (p2n.split('Guest ').length - 1 > 0) p2n = r[i][1];
 					var tabla = "";if (!firstMatch) {var tabla = "</center><table align=center cellpadding=0 cellspacing=0>";firstMatch = true;}
 					var tourbattle = tour[room.id].battles[i];
-					html += tabla + "<tr><a href='/" + tourbattle + "' room='" + tourbattle + "'><td align=right><b>" + clean(p1n) + "</b></td><td><b>&nbsp;VS&nbsp;</b></td><td><b>" + clean(p2n) + "</b></td></a></tr>";
+					function link(txt) {
+						return "<a href='/" + tourbattle + "' room='" + tourbattle + "'>" + txt + "</a>";
+					}
+					html += tabla + "<tr><td align=right><b>" + link(clean(p1n)) + "</b></td><td><b>&nbsp;" + link("VS") + "&nbsp;</b></td><td><b>" + link(clean(p2n)) + "</b></td></tr>";
 				}
 				else {
 					//match completed
