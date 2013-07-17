@@ -179,7 +179,7 @@ exports.BattleMovedex = {
                 shortDesc: "Lowers SpA and Atk by 1.",
                 id: "nobleroar",
                 name: "Noble Roar",
-                pp: 16
+                pp: 16,
                 priority: 0,
                 boosts: {
                         atk: -1,
@@ -282,5 +282,5 @@ exports.BattleMovedex = {
                 secondary: false,
                 target: "all",
                 type: "Dark"
-        }
+	}
 };
