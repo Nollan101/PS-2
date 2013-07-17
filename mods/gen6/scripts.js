@@ -15,7 +15,7 @@ exports.BattleScripts = {
         this.data.Pokedex.clefable.types = ["Normal","Fairy"];
         this.data.Learnsets.clefable.learnset.fairywind = ['5L0'];
         this.data.Learnsets.clefable.learnset.lunardance = ['5L0'];
-        this.data.Learnsets.clefable.learnset.topsyturvey = ['5L0'];     
+        this.data.Learnsets.clefable.learnset.topsyturvy = ['5L0'];     
         
         this.data.Pokedex.gallade.types = ["Fighting","Fairy"];
         this.data.Learnsets.gallade.learnset.fairywind = ['5L0'];
