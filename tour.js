@@ -320,6 +320,7 @@ var cmds = {
 		if (target == "update" && this.can('hotpatch')) {
 			CommandParser.uncacheTree('./tour.js');
 			tour = require('./tour.js').tour(tour);
+			return this.sendReply('Tournament scripts were updated.');
 		}
 		if (!user.can('broadcast') && room.auth[user.userid]!='#') return this.parse('/tours');
 		var rid = room.id;
