@@ -51,7 +51,7 @@ exports.tour = function(t) {
 				round: new Array(),
 				history: new Array(),
 				byes: new Array(),
-				battles: new Array(),
+				battles: new Object(),
 				battlesended: new Array(),
 			};
 		},
@@ -715,8 +715,8 @@ var cmds = {
 		}
 	},
 
-	battlesended: function(target,room,user) {
-		if (tour[room.id] === undefined) return this.sendReply('There is no active tournament in this room.');
+	battlesended: function(target, room, user) {
+		if (typeof tour[room.id] == "undefined") return this.sendReply('There is no active tournament in this room.');
 		if (tour[room.id].battlesended.length == 0) return this.sendReply('No finished tournament battle is registered.');
 		return this.sendReply(tour[room.id].battlesended.toString());
 	},
