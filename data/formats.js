@@ -26,7 +26,7 @@ exports.BattleFormats = {
 		searchShow: true,
 		ruleset: ['Random Battle']
 	},
-	gen4oubeta: {
+	gen6oubeta: {
 		name: "[Gen 6] OU (beta)",
 		section: "Generation 6",
 
