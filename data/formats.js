@@ -103,20 +103,6 @@ exports.BattleFormats = {
 		isTeambuilderFormat: true,
 		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
 		banlist: ['NU']
-	},
-	pokecyberlc: {
-		name: "PokeCyber LC",
-		section: "PokeCyber Tiers",
-		
-                mod: 'pokecybertiers'
-		effectType: 'Format',
-		maxLevel: 5,
-		rated: true,
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Little Cup'],
-		banlist: ['Sonicboom', 'Dragon Rage', 'Berry Juice', 'Carvanha', 'Meditite', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Yanma', 'Soul Dew']
 	},	
 	ou: {
 		name: "OU",
