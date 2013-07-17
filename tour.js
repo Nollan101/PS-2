@@ -380,15 +380,6 @@ var cmds = {
 		}
 		if (!user.can('broadcast') && room.auth[user.userid]!='#') return this.parse('/tours');
 		var rid = room.id;
-		var orid = room.id;
-		var tourrooms = new Object();
-		if (Rooms.rooms["tournaments"]) tourrooms["tournaments"] = 1;
-		if (Rooms.rooms["tournaments2"]) tourrooms["tournaments2"] = 1;
-		if (Object.keys(tourrooms).length) {
-			if (!tourrooms[rid]) rid = "tournaments";
-			if (tour[rid].status > 0 && tourrooms["tournaments2"]) rid = "tournaments2";
-			if (tour[rid].status > 0) rid = orid;
-		}
 		if (tour[rid].status != 0) return this.sendReply('There is already a tournament running, or there is one in a signup phase.');
 		if (!target) return this.sendReply('Proper syntax for this command: /tour tier, size');
 		var targets = tour.splint(target);
@@ -426,7 +417,6 @@ var cmds = {
 
 		Rooms.rooms[rid].addRaw('<hr /><h2><font color="green">' + sanitize(user.name) + ' has started a ' + Tools.data.Formats[tempTourTier].name + ' Tournament.</font> <font color="red">/j</font> <font color="green">to join!</font></h2><b><font color="blueviolet">PLAYERS:</font></b> ' + targets[1] + '<br /><font color="blue"><b>TIER:</b></font> ' + Tools.data.Formats[tempTourTier].name + '<hr />');
 		if (tour.timers[rid]) Rooms.rooms[rid].addRaw('<i>The tournament will begin in ' + tour.timers[rid].time + ' minute(s).<i>');
-		if (rid != orid) return this.sendReply('|raw|Your tournament was started in this room: <button name="joinRoom" value="' + rid + '">Join ' + rid + '.</button>');	
 	},
 
 	endtour: function(target, room, user, connection) {
