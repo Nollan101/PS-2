@@ -251,10 +251,10 @@ exports.BattleMovedex = {
                 id: "geomancy",
                 name: "Geomancy",
                 pp: 16,
-          priority: 0,
+                priority: 0,
 		self: {
 			boosts: {
-				spa: -1
+				spa: -1,
                                 spd: -1
 			}
 		},
