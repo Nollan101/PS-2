@@ -51,7 +51,8 @@ exports.tour = function(t) {
 				round: new Array(),
 				history: new Array(),
 				byes: new Array(),
-				battles: new Object()
+				battles: new Array(),
+				battlesended: new Array(),
 			};
 		},
 		shuffle: function(list) {
@@ -281,6 +282,7 @@ exports.tour = function(t) {
 				}
 				Rooms.rooms[rid].addRaw(html + "</table>");
 			}
+			tour[rid].battlesended = [];
 		},
 	};
 
@@ -681,18 +683,21 @@ var cmds = {
 											var success = true;
 											break tourinvalidlabel;
 										} else if (rightplayers) {
+											var success = false;
 										} else if (rightplayer & !(missingp1 || missingp2) ) {
 											c.round[x][2] = undefined;
 											Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + room.p1.name + '</b>' + " and " + '<b>' + room.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
 											var success = true;
 											break tourinvalidlabel;
+										} else if (rightplayer) {
+											var success = false;
 										} else {
 											c.round[x][2] = undefined;
 											Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + room.p1.name + '</b>' + " and " + '<b>' + room.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>');
 											var success = true;
 											break tourinvalidlabel;
 										}
-								
+
 							}
 						}
 					}
@@ -708,6 +713,12 @@ var cmds = {
 				}
 			}
 		}
+	},
+
+	battlesended: function(target,room,user) {
+		if (tour[room.id] === undefined) return this.sendReply('There is no active tournament in this room.');
+		if (tour[room.id].battlesended.length == 0) return this.sendReply('No finished tournament battle is registered.');
+		return this.sendReply(tour[room.id].battlesended.toString());
 	},
 
 	documentation: function() {
@@ -867,6 +878,7 @@ Rooms.BattleRoom.prototype.win = function(winner) {
 										c.round[x][2] = undefined;
 										Rooms.rooms[i].addRaw("The tournament match between " + '<b>' + this.p1.name + '</b>' + " and " + '<b>' + this.p2.name + '</b>' + " was " + '<b>' + "invalidated." + '</b>' + " Please have another battle.");
 									}
+									tour[i].battlesended.push(this.id);
 						}
 					}
 				}
