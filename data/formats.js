@@ -26,6 +26,19 @@ exports.BattleFormats = {
 		searchShow: true,
 		ruleset: ['Random Battle']
 	},
+	gen6ou: {
+		name: "Gen 6 OU TEST",
+		section: "Generation 6",
+
+		mod: 'gen6',
+		effectType: 'Format',
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
+	},	
 	pokecyberou: {
 		name: "PokeCyber OU",
 		section: "PokeCyber Tiers",
@@ -103,6 +116,20 @@ exports.BattleFormats = {
 		isTeambuilderFormat: true,
 		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
 		banlist: ['NU']
+	},
+	pokecyberlc: {
+		name: "PokeCyber LC",
+		section: "PokeCyber Tiers",
+
+                mod: 'pokecybertiers'
+		effectType: 'Format',
+		maxLevel: 5,
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Little Cup'],
+		banlist: ['Sonicboom', 'Dragon Rage', 'Berry Juice', 'Carvanha', 'Meditite', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Yanma', 'Soul Dew']
 	},	
 	ou: {
 		name: "OU",
