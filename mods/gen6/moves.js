@@ -259,7 +259,7 @@ exports.BattleMovedex = {
 			}
 		},
                 secondary: false,
-                target: "all",
+                target: "normal",
                 type: "Fairy"
         },
         "oblivionwing": {
@@ -280,7 +280,7 @@ exports.BattleMovedex = {
 			}
 		},
                 secondary: false,
-                target: "all",
+                target: "normal",
                 type: "Dark"
 	}
 };
