@@ -25,5 +25,30 @@ exports.BattleScripts = {
 	this.modData('Learnsets', 'gallade').drainingkiss = ['5L0'];              
 	this.modData('Learnsets', 'gallade').lunardance = ['5L0'];
 	this.modData('Learnsets', 'gallade').mysticcrash = ['5L0'];
+	
+	this.modData('Learnsets', 'yveltal').learnset.toxic = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.doubleedge = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.oblivionwing = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.darkpulse = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.airslash = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.hurricane = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.aurasphere = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.dragondance = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.focusblast = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.superpower = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.roost = ['5L0'];
+	
+	this.modData('Learnsets', 'xerneas').learnset.toxic = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.doubleedge = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.geomancy = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.fairywind = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.gigadrain = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.leafstorm = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.aurasphere = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.calmmind = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.lunardance = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.powerwhip = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.superpower = ['5L0'];
+	this.modData('Learnsets', 'yveltal').learnset.recover = ['5L0'];
 		}
 };
