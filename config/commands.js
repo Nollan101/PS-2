@@ -433,6 +433,14 @@ var commands = exports.commands = {
 	avatars: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('Your avatar can be changed using the Options menu (it looks like a gear) in the upper right of Pokemon Showdown.');
+		var parts = target.split(',');
+		var avatar = parseInt(parts[0]);
+		if (!avatar || avatar > 294 && avatar < 1000 || avatar < 1 || avatar > 1013) {
+			if (!parts[1]) {
+				emit(socket, 'console', 'Invalid avatar.');
+			}
+		return false;
+		}
 	},
 
 	introduction: 'intro',
